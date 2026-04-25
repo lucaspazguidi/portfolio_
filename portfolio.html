@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas — Landing Page Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #f8f5f0;
+  --cream: #ede9e2;
+  --accent: #c8f04a;
+  --accent-dark: #a8d030;
+  --gray: #6b6b6b;
+  --card-bg: #141414;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 48px;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  color: var(--white);
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: rgba(248,245,240,0.55);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--accent);
+  color: var(--black) !important;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-weight: 500 !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--accent-dark) !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(200,240,74,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,240,74,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(200,240,74,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(200,240,74,0.1);
+  border: 1px solid rgba(200,240,74,0.25);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero h1 .outline {
+  -webkit-text-stroke: 2px var(--white);
+  color: transparent;
+}
+
+.hero h1 .accent { color: var(--accent); }
+
+.hero-desc {
+  margin-top: 28px;
+  max-width: 520px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(248,245,240,0.6);
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 44px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--black);
+  border: none;
+  padding: 15px 32px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+.btn-secondary {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.btn-secondary:hover { opacity: 1; }
+.btn-secondary svg { transition: transform 0.2s; }
+.btn-secondary:hover svg { transform: translateX(4px); }
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: rgba(248,245,240,0.45);
+  margin-top: 4px;
+  letter-spacing: 0.3px;
+}
+
+/* ── SECTION COMMONS ── */
+section {
+  padding: 100px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  font-size: 16px;
+  color: rgba(248,245,240,0.55);
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+/* ── PROJECTS ── */
+#projects { max-width: 100%; padding: 100px 48px; }
+#projects .section-header { max-width: 1200px; margin: 0 auto 56px; }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: transform 0.3s, border-color 0.3s;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(200,240,74,0.3);
+}
+
+.project-card:hover .card-img-overlay {
+  opacity: 1;
+}
+
+.card-img-wrap {
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+  background: #1e1e1e;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+
+.project-card:hover .card-img-wrap img {
+  transform: scale(1.05);
+}
+
+/* Placeholder when no image */
+.card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+}
+
+.card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(200,240,74,0.08);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-view-btn {
+  background: var(--accent);
+  color: var(--black);
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.card-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(200,240,74,0.1);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.card-body { padding: 24px; }
+
+.card-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: rgba(248,245,240,0.5);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+.card-link:hover { gap: 10px; }
+
+/* ── SERVICES ── */
+.services-section {
+  background: #0f0f0f;
+  padding: 100px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.services-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.service-item {
+  padding: 32px;
+  background: var(--card-bg);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: border-color 0.3s;
+}
+.service-item:hover { border-color: rgba(200,240,74,0.25); }
+
+.service-icon {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.service-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.service-desc {
+  font-size: 14px;
+  color: rgba(248,245,240,0.5);
+  line-height: 1.65;
+}
+
+.service-price {
+  margin-top: 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.service-price span {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(248,245,240,0.35);
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── ABOUT ── */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid rgba(255,255,255,0.07);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.about-avatar-area {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.about-avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  color: var(--black);
+  flex-shrink: 0;
+}
+
+.about-name-wrap .name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+}
+.about-name-wrap .role {
+  font-size: 13px;
+  color: rgba(248,245,240,0.45);
+  margin-top: 3px;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.skill-pill {
+  background: rgba(200,240,74,0.08);
+  border: 1px solid rgba(200,240,74,0.2);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+
+.about-text p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(248,245,240,0.65);
+  margin-bottom: 20px;
+}
+
+.about-text p:last-child { margin-bottom: 0; }
+
+/* ── CONTACT / CTA ── */
+.cta-section {
+  background: var(--accent);
+  padding: 80px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: 'LET\'S WORK';
+  position: absolute;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 180px;
+  color: rgba(0,0,0,0.06);
+  white-space: nowrap;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  letter-spacing: -6px;
+}
+
+.cta-section .section-label { color: rgba(0,0,0,0.5); }
+
+.cta-section h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(36px, 5vw, 60px);
+  letter-spacing: -2px;
+  color: var(--black);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.cta-section p {
+  font-size: 17px;
+  color: rgba(0,0,0,0.6);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.btn-dark {
+  background: var(--black);
+  color: var(--accent);
+  border: none;
+  padding: 16px 36px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s;
+  position: relative;
+}
+.btn-dark:hover { transform: translateY(-3px); }
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 32px;
+  position: relative;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.contact-link:hover { color: var(--black); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 32px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+}
+.footer-logo span { color: var(--accent); }
+
+.footer-copy {
+  font-size: 13px;
+  color: rgba(248,245,240,0.3);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 18px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 60px; }
+  .hero-stats { gap: 28px; }
+  section { padding: 70px 24px; }
+  #projects { padding: 70px 24px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .about-layout { grid-template-columns: 1fr; gap: 40px; }
+  .cta-section { padding: 60px 24px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Lucas<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Available for freelance work</div>
+    <h1>
+      I build landing pages<br>
+      that <span class="outline">convert</span><span class="accent">.</span>
+    </h1>
+    <p class="hero-desc">
+      Clean, fast, and modern websites for small businesses — delivered quickly and starting at just <strong style="color:var(--white)">$10</strong>. No templates, no fluff.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">See My Work</a>
+      <a href="#contact" class="btn-secondary">
+        Hire me on Fiverr
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Projects Delivered</div>
+      </div>
+      <div>
+        <div class="stat-num">$10</div>
+        <div class="stat-label">Starting Price</div>
+      </div>
+      <div>
+        <div class="stat-num">48h</div>
+        <div class="stat-label">Avg. Delivery</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PROJECTS -->
+<div id="projects">
+  <div class="section-header reveal">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Recent Projects</h2>
+    <p class="section-sub">Each page is custom-built for the business — no cookie-cutter templates.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Card 1 -->
+    <div class="project-card reveal">
+      <div class="card-img-wrap">
+        <img src="IMG-BARBEARIA.png" alt="Barbershop Landing Page" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="card-img-placeholder" style="display:none">✂️</div>
+        <div class="card-img-overlay">
+          <a href="#" target="_blank" class="card-view-btn">View Live →</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Barbershop</div>
+        <div class="card-title">Barbershop Landing Page</div>
+        <p class="card-desc">Dark, modern design for a premium barbershop. Booking section, services, and gallery included.</p>
+        <a href="#" target="_blank" class="card-link">
+          View Project
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="project-card reveal">
+      <div class="card-img-wrap">
+        <img src="IMG_PIZZARIA.png" alt="Pizza Restaurant Website" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="card-img-placeholder" style="display:none">🍕</div>
+        <div class="card-img-overlay">
+          <a href="#" target="_blank" class="card-view-btn">View Live →</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Restaurant</div>
+        <div class="card-title">Pizza Restaurant Website</div>
+        <p class="card-desc">Vibrant, appetite-driven design with menu section, location map, and online order CTA.</p>
+        <a href="#" target="_blank" class="card-link">
+          View Project
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="project-card reveal">
+      <div class="card-img-wrap">
+        <img src="IMG_GARRAFA.png" alt="Product Landing Page" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="card-img-placeholder" style="display:none">📦</div>
+        <div class="card-img-overlay">
+          <a href="#" target="_blank" class="card-view-btn">View Live →</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">E-commerce</div>
+        <div class="card-title">Product Landing Page</div>
+        <p class="card-desc">Minimal, conversion-focused layout built to sell. Clean hero, features section, and strong CTA.</p>
+        <a href="#" target="_blank" class="card-link">
+          View Project
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="services-section" id="services">
+  <div class="services-inner">
+    <div class="reveal">
+      <div class="section-label">What I Offer</div>
+      <h2 class="section-title">Services & Pricing</h2>
+      <p class="section-sub">Straightforward packages designed for small businesses who need results without breaking the bank.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-item reveal">
+        <div class="service-icon">⚡</div>
+        <div class="service-name">Basic Landing Page</div>
+        <p class="service-desc">Single-page site with hero, about, services, and contact section. Clean, mobile-friendly, and fast.</p>
+        <div class="service-price">$10 <span>/ starting at</span></div>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-icon">🎨</div>
+        <div class="service-name">Custom Business Site</div>
+        <p class="service-desc">Multi-section website tailored to your brand. Includes animations, gallery, and custom styling.</p>
+        <div class="service-price">$25 <span>/ starting at</span></div>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-icon">🔧</div>
+        <div class="service-name">Fixes & Revisions</div>
+        <p class="service-desc">Already have a site? I'll fix bugs, improve the design, or update your content fast and affordably.</p>
+        <div class="service-price">$5 <span>/ starting at</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-layout">
+    <div class="about-visual reveal">
+      <div class="about-card">
+        <div class="about-avatar-area">
+          <div class="about-avatar">L</div>
+          <div class="about-name-wrap">
+            <div class="name">Lucas</div>
+            <div class="role">Front-End Developer · Fiverr Freelancer</div>
+          </div>
+        </div>
+        <p style="font-size:14px; color:rgba(248,245,240,0.5); line-height:1.7; margin-bottom:20px">
+          Passionate about crafting web experiences that look great and drive results for real businesses.
+        </p>
+        <div class="skills-list">
+          <span class="skill-pill">HTML</span>
+          <span class="skill-pill">CSS</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">Responsive Design</span>
+          <span class="skill-pill">UI/UX</span>
+          <span class="skill-pill">Fast Delivery</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Building pages that work for your business</h2>
+      <p>
+        I'm a front-end developer focused on creating clean, professional landing pages for small businesses. My goal is simple: give every business — no matter the size — access to a great online presence at a price that makes sense.
+      </p>
+      <p>
+        On Fiverr, I've helped businesses in the food, beauty, and retail industries launch pages that actually convert visitors into customers.
+      </p>
+      <a href="#contact" class="btn-primary" style="margin-top:16px;">Let's Work Together</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<div class="cta-section" id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2>Ready to launch<br>your page?</h2>
+  <p>Drop me a message on Fiverr and let's get started today.</p>
+  <a href="https://www.fiverr.com/sellers/lucasguidi" target="_blank" class="btn-dark">Order on Fiverr</a>
+  <div class="contact-links">
+    <a href="mailto:lucaspazguidi@hotmail.com?subject=Contato%20pelo%20portfólio&body=Olá%20Lucas,%20vi%20seu%20portfólio%20e%20gostaria%20de%20falar%20sobre%20um%20projeto." class="contact-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><polyline points="22,6 12,13 2,6"/></svg>
+      lucaspazguidi@hotmail.com
+    </a>
+    <a href="https://www.fiverr.com/sellers/lucasguidi" target="_blank" class="contact-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+       fiverr.com/sellers/lucasguidi
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lucas<span>.</span></div>
+  <div class="footer-copy">© 2026 Lucas — All rights reserved</div>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
